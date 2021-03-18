@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Calorie Buddy: Login</title>
+        <link rel="stylesheet" type="text/css" href="styles.css">
+    </head>
+        <body>
+            <div class="main-content">
+
+		<!-- Render the top bar div (h1 and anchor tags) passed as a prop from the server when page is rendered -->
+		<%- navigation %>
+                <h2>Login to your account</h2>
+                <p>Enter your username and password below, then click the 'Login' button</p>
+		
+		<!-- In case of validation failures at loggedin route, page re-rendered with error prompts to user -->
+		<% if (errorMessages) { %>
+			<%- errorMessages %>
+		<% } %>
+
+                <form action='/verify' method='post'>
+                    <label for='username'>Username: </label>
+                    <input class='form' name='username' type='text' placeholder='e.g. janesmith25' value='<%- username %>'>
+                    <br>
+                    <label for='password'>Password: </label>
+                    <input class='form' name='password' type='password'>
+                    <br>
+                    <input type='submit' value='Login'>
+                </form>
+            </div>
+        </body>
+</html>

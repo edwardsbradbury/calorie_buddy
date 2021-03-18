@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Calorie Buddy: Register an account</title>
+        <link rel="stylesheet" type="text/css" href="styles.css">
+    </head>
+        <body>
+            <div class="main-content">
+
+		<!-- Render the top bar div (h1 and anchor tags) passed as a prop from the server when page is rendered -->
+                <%- navigation %>
+		<h2>Register</h2>
+                <p>Register for a Calorie Buddy account by completing the form below and clicking the 'Register' button:</p>
+
+		<!-- When input fails validation in registered route, page is re-rendered with error prompts to tell the user
+		     what they need to correct. Messages are passed as props from server -->		
+		<% if (errorMessages) {  %>
+			<%- errorMessages  %>
+		<% }  %>
+
+		<!-- input values = props from server, so that in case of validation failures, page is re-rendered but user
+		     doesn't have to re-enter all input. They can just correct as prompted -->
+                <form action='/registered' method='post'>
+                    <label for='first'>First name: </label>
+                    <input class='form' name='first' type='text' placeholder='e.g. Jane' value='<%- first %>'>
+                    <br>
+                    <label for='last'>Last name: </label>
+                    <input class='form' name='last' type='text' placeholder='e.g. Smith' value='<%- last %>'>
+                    <br>
+                    <label for='email'>Email address: </label>
+                    <input class='form' name='email' type='text' placeholder='e.g. janesmith@gmail.com' value='<%- email %>'>
+                    <br>
+                    <label for='username'>Username: </label>
+                    <input class='form' name='username' type='text' placeholder='e.g. janesmith25' value='<%- username %>'>
+                    <br>
+                    <label for='password'>Password: </label>
+                    <input class='form' name='password' type='password' value='<%- password %>'>
+                    <br>
+                    <input type='submit' value='Register'>
+                </form>
+            </div>
+        </body>
+</html>

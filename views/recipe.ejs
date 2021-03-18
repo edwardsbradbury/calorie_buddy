@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+    
+    <head>
+        <title>Calorie Buddy: List food</title>
+        <link rel="stylesheet" type="text/css" href="styles.css">
+    </head>
+    
+    <body>
+        
+        <div class="main-content">
+
+		<!-- Render the top bar div (h1 and anchor tags) passed as a prop from the server when page is rendered -->
+		<%- navigation %>		
+		
+		<div class='food-item'>
+
+			<h2>Nutrition values for recipe</h2>
+			<p>Your recipe's ingredients: <% ingredients.forEach(function(anIngredient){ %><%- anIngredient %>, <% }) %></p>
+
+                 	<table>
+                        	<caption>Nutritional values</caption>
+                                <tr>
+                                        <th>Typical nutrition per</th>
+                                        <th>Calories</th>
+                                        <th>Carbohydrates</th>
+                                        <th>Fat</th>
+                                        <th>Protein</th>
+                                        <th>Salt</th>
+                                        <th>Sugar</th>
+                                </tr>
+                                <tr>
+                                        <td><%- values_per %> <%- unit %></td>
+                                        <td><%- calories %></td>
+                                        <td><%- carbs %></td>
+                                        <td><%- fat %></td>
+                                        <td><%- protein %></td>
+                                        <td><%- salt %></td>
+                                        <td><%- sugar %></td>
+                                </tr>
+                        </table>
+                </div>
+
+		<!-- If data posted to /foodadded route fails validation, re-render page with error prompt to user -->
+		<% if (message) { %>
+			<%- message %>
+		<% } %>
+		
+
+		<!-- Hidden inputs are for passing the nutritional values to server in req.body -->
+		<h2>Want to save your recipe to the database to retrieve in future?</h2>
+		<form action='/foodadded' method='post'>
+			
+			<input type='hidden' name='recipeMode' value=true>	
+			<label for='name'>Give your recipe a name (only letters, digits and spaces accepted): </label>
+			<input type='text' name='name' placeholder='e.g. flapjacks'>
+			<input type='hidden' name='values_per' value='<%- values_per %>'>
+			<input type='hidden' name='unit' value='<%- unit %>'>
+			<input type='hidden' name='calories' value='<%- calories %>'>
+			<input type='hidden' name='carbs' value='<%- carbs %>'>
+			<input type='hidden' name='fat' value='<%- fat %>'>
+			<input type='hidden' name='protein' value='<%- protein %>'>
+			<input type='hidden' name='salt' value='<%- salt %>'>
+			<input type='hidden' name='sugar' value='<%- sugar %>'>	
+			<br>
+			<input type='submit' value='Save recipe'>
+
+		</form>	
+	
+        </div>
+    
+    </body>
+
+</html>
+

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Calorie Buddy: Homepage</title>
+        <link rel="stylesheet" type="text/css" href="styles.css">
+    </head>
+        <body>
+            <div class="main-content">
+		
+		<!-- Render the top bar div (h1 and anchor tags) passed as a prop from the server when page is rendered -->
+		<%- navigation %>
+                <h2>Welcome to Calorie Buddy, an app providing nutritional information for ingredients and recipes</h2>
+		
+		<!-- Display success messages passed as props when loggedin & logout routes succeed -->		
+		<% if (messages) { %>
+			<%- messages %>
+		<% } %>
+
+            </div>
+        </body>
+</html>

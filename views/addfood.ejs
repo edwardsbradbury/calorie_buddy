@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Calorie Buddy: Add new food</title>
+        <link rel="stylesheet" type="text/css" href="styles.css">
+    </head>
+        <body>
+            <div class="main-content">
+		
+		<!-- Render the top bar div (h1 and anchor tags) passed as a prop from the server when page is rendered -->
+                <%- navigation %>
+
+		<!-- When template was rendered from /add-food route, display this text -->
+		<% if (!(updateMode || recipeMode)) { %>
+			<h2>Add new food items to the database</h2>
+                	<p>Complete the form below and click the 'Add food' button to add new items to the database.</p>
+			<p>To create a recipe, go to the <a href='/list'>List</a> page.<br>
+			Tick your desired ingredients on the list, then click Calculate.<br>
+			You can name and save the resulting nutritional data as a recipe.<br>
+			You might need to add some ingredients to the database from the 'Add food' page first!</p>
+			<p>Name can only contain letters, numbers and spaces. Name must also be unique.<br>
+			Values per must be a whole number greater than zero.<br>
+			Unit must be a letter or letters (no digits, symbols or spaces) up to 15 characters long.<br>
+			All other fields must hold numeric data, greater than zero, with a maximum of 2 decimal places.</p>
+		<!-- When template was rendered from /update route -->
+		<% } else if (updateMode) { %>
+			<h2>Update the nutritional data for <%- origName %></h2>
+                	<p>Enter data in the fields below and click the 'Update food' button.</p>
+			<p>Name can only contain letters, numbers and spaces. Name must also be unique.<br>
+                        Values per must be a whole number greater than zero.<br>
+                        Unit must be a letter or letters (no digits, symbols or spaces) up to 15 characters long.<br>
+                        All other fields must hold numeric data, greater than zero, with a maximum of 2 decimal places.</p>
+		<!-- when rendered from calculate nutrition route -->
+		<% } else if (recipeMode) { %>
+			<h2>Save your recipe to the database</h2>
+                        <p>Enter a name for your recipe and click 'Save recipe'.<br>
+			Recipe names can only contain letters, numbers and spaces and must not duplicate names of food items already in the database</p>
+		<% } %>
+
+		<!-- Conditionally render error/warning messages to user if input fails validation -->
+		<% if (messages) { %>
+			<%- messages %>
+		<% } %>
+
+		<!-- Conditionally specify which route to post the input data to -->
+		<% if (!updateMode) { %>
+                	<form action='/foodadded' method='post'>
+                <% } else { %>
+			<form action='/foodupdated' method='post'>
+		<% } %>
+		    <% if (updateMode) { %>
+		    	<input type='hidden' name='origName' value='<%- origName %>'>
+		    <% } %>
+		    <% if (!recipeMode) { %>
+		    	<input type='hidden' name='recipeMode' value=false>
+			<label for='name'>Item name: </label>
+                    	<input class='form' name='name' type='text' placeholder='e.g. flapjack' value='<%- name %>'>
+                    	<br>
+                    	<label for='values_per'>Nutritional values are per: </label>
+                    	<input class='form' name='values_per' type='text' placeholder='e.g. 100' value='<%- values_per %>'>
+                    	<br>
+                    	<label for='unit'>Unit nutritional values are per: </label>
+                    	<input class='form' name='unit' type='text' placeholder='e.g. grams' value='<%- unit %>'>
+                    	<br>
+                    	<label for='calories'>Calories: </label>
+                    	<input class='form' name='calories' type='text' placeholder='e.g. 381 kcal' value='<%- calories %>'>
+                    	<br>
+                    	<label for='carbs'>Carbohydrates: </label>
+                    	<input class='form' name='carbs' type='text' placeholder='e.g. 81' value='<%- carbs %>'>
+                    	<br>
+                    	<label for='fat'>Fat: </label>
+                    	<input class='form' name='fat' type='text' placeholder='e.g. 1.4' value='<%- fat %>'>
+                    	<br>
+                    	<label for='protein'>Protein: </label>
+                    	<input class='form' name='protein' type='text' placeholder='e.g. 9.1' value='<%- protein %>'>
+                    	<br>
+                    	<label for='salt'>Salt: </label>
+                    	<input class='form' name='salt' type='text' placeholder='e.g. 0.01' value='<%- salt %>'>
+                    	<br>
+                    	<label for='sugar'>Sugar: </label>
+                    	<input class='form' name='sugar' type='text' placeholder='e.g. 0.6' value='<%- sugar %>'>
+                    	<br>      
+                    	<input type='submit' value="<%- (updateMode) ? 'Update food' : 'Add food'  %>">
+		    
+		    <% } else { %>
+			
+			<input type='hidden' name='recipeMode' value='true'>
+		    	<label for='name'>Item name: </label>
+                    	<input class='form' name='name' type='text' placeholder='e.g. flapjack' value='<%- name %>'>
+                    	<br>
+                    	<label for='values_per'>Nutritional values are per: </label>
+                    	<input class='form' name='values_per' type='text' placeholder='e.g. 100' value='<%- values_per %>' readonly>
+                    	<br>
+                    	<label for='unit'>Unit nutritional values are per: </label>
+                    	<input class='form' name='unit' type='text' placeholder='e.g. grams' value='<%- unit %>' readonly>
+                    	<br>
+                    	<label for='calories'>Calories: </label>
+                    	<input class='form' name='calories' type='text' placeholder='e.g. 381 kcal' value='<%- calories %>' readonly>
+                    	<br>
+                    	<label for='carbs'>Carbohydrates: </label>
+                    	<input class='form' name='carbs' type='text' placeholder='e.g. 81' value='<%- carbs %>' readonly>
+                    	<br>
+                    	<label for='fat'>Fat: </label>
+                    	<input class='form' name='fat' type='text' placeholder='e.g. 1.4' value='<%- fat %>' readonly>
+                    	<br>
+                    	<label for='protein'>Protein: </label>
+                    	<input class='form' name='protein' type='text' placeholder='e.g. 9.1' value='<%- protein %>' readonly>
+                    	<br>
+                    	<label for='salt'>Salt: </label>
+                    	<input class='form' name='salt' type='text' placeholder='e.g. 0.01' value='<%- salt %>' readonly>
+                    	<br>
+                    	<label for='sugar'>Sugar: </label>
+                    	<input class='form' name='sugar' type='text' placeholder='e.g. 0.6' value='<%- sugar %>' readonly>
+                    	<br>
+                    	<input type='submit' value='Save recipe'>
+		    <% } %>
+		</form>
+
+		<!-- When template is rendered from /update route, give user option to delete food item -->
+		<% if (updateMode) { %>
+		<form action='/deletefood' method='post'>
+		    <input type='hidden' name='name' value='<%- name %>'>
+		    <h2>Delete this food item from the database altogether?</h2>
+		    <input type='submit' onclick="if (!(confirm('Are you sure you want to delete <%- name %> from the database?'))) {event.preventDefault()}" value='Delete food'>
+		</form>
+		<% } %>
+
+            </div>
+        </body>
+</html>

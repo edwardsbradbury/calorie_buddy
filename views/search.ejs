@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Calorie Buddy: Search</title>
+        <link rel="stylesheet" type="text/css" href="styles.css">
+    </head>
+        <body>
+            <div class="main-content">
+                
+		<!-- Render the top bar div (h1 and anchor tags) passed as a prop from the server when page is rendered -->
+		<%- navigation %>
+		
+		<!-- Text displayed to user is conditional on whether this template is rendered from the /search route or
+		     the /update route -->		
+		<% if (searchMode) { %>
+			<h2>Search nutritional information</h2>
+                	<p>Search for a food type or ingredient to find nutritional information for it:</p>
+		<% } else if (updateMode) { %>
+			<h2>Which food item do you want to update?</h2>
+			<p>Search for the item of food you want to update the nutritional information for:</p>
+		<% } %>
+		
+		<!-- If search fails to find results or search input is invalid, re-render page with messages to inform user -->
+		<% if (messages) { %>
+			<%- messages %>
+		<% } %>
+
+		<!-- Which route process the search is conditional on whether page was rendered from /seearch route or /update route -->
+                <% if (searchMode) { %>
+			<form class='form' action='/search-results' method='get'>
+		<% } else if (updateMode) { %>
+			<form class='form' action='/search-update' method='get'>
+		<% } %>
+                    	<label for='keyword'>Search: </label>
+                    	<input class='form' name='keyword' type='text' placeholder='e.g. chocolate cake'>
+                    	<br>
+                    	<input type='submit' value='Search'>
+                </form>
+            </div>
+        </body>
+</html>

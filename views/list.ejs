@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Calorie Buddy: List food</title>
+        <link rel="stylesheet" type="text/css" href="styles.css">
+    </head>
+        <body>
+            <div class="main-content">
+                <!-- Render the top bar div (h1 and anchor tags) passed as a prop from the server when page is rendered -->
+		<%- navigation %>
+		<h2>List all food and nutrition information</h2>
+                <p>Below is all of the food and nutrition information in our database.</p>
+		
+		<!-- If the database contains ingredients/recipes/meals, those are passed as a prop from the server. If db is empty, foods is null -->
+		<% if (foods) { %>
+			<p>Use the checkboxes to select ingredients and click the Calculate button to get nutritional info for a recipe made from those ingredients.</p>
+		<form action='/calculatenutrition' method='get'>
+		    
+			<!-- Create a div holding a table for each item -->
+			<% foods.forEach(function(aFood){ %>
+				<div class='food-item'>
+					<table>
+						<caption><%= aFood.name %></caption>
+						<tr>
+							<th>Select</th>
+							<th>Typical nutrition per</th>
+							<th>Calories</th>
+							<th>Carbohydrates</th>
+							<th>Fat</th>
+							<th>Protein</th>
+							<th>Salt</th>
+							<th>Sugar</th>
+						</tr>
+						<tr>
+							<td><input type='checkbox' name='<%- aFood.name %>'></td>
+							<td><%= aFood.values_per %> <%= aFood.unit %></td>
+							<td><%= aFood.calories %></td>
+							<td><%= aFood.carbs %></td>
+							<td><%= aFood.fat %></td>
+							<td><%= aFood.protein %></td>
+							<td><%= aFood.salt %></td>
+							<td><%= aFood.sugar %></td>
+						</tr>
+					</table>
+				</div>
+                    	<% }) %>
+		    	<br>
+		    	Get nutritional data for recipe with these ingredients: <input type='submit' value='Calculate'>
+			</form>
+
+		<!-- foods is null, database is empty. Display message prop from server to inform user db is empty -->
+		<% } else { %>
+			<%- message %>
+		<% } %>
+            </div>
+        </body>
+</html>
