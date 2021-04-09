@@ -222,6 +222,23 @@ R12:
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+The database this app uses is named calorieBuddy:
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| calorieBuddy       |
+| myBookshop         |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+6 rows in set (0.07 sec)
+
+Its tables are 'users' and 'food-item'.
+
 mysql> desc users;
 +----------+--------------+------+-----+---------+----------------+
 | Field    | Type         | Null | Key | Default | Extra          |
@@ -253,3 +270,6 @@ mysql> desc food_item;
 +------------+-----------------------+------+-----+---------+----------------+
 11 rows in set (0.00 sec)
 
+There are no foreign keys and consequently no relationships between the tables because it wasn't necessary to overcomplicate the database like that. The 'input_by' field in the 'food_item' table could have been made a foreign key to reference either id or username (although username isn't a primary key, my registration logic in main.js prevents entry of duplicate usernames). However, the only useful purpose of making that relationship would've been for controlling updating/deleting a row in 'food_item'.
+
+My 'search-update' route (line 423 of main.js) retrieves a record matching the search input and then uses JavaScript logic to compare the record's 'input_by' property to the userId (which I set to the current user's username) to determine whether or not the current user has authorisation to edit the record. Hence, a relationship between users.id (or users.username) and food_item.input_by is just unnecessary.
