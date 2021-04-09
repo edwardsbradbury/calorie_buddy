@@ -219,3 +219,37 @@ R11 Form validation:
 R12:
 
 	The whole app is built using only Node, Express, EJS templating and MySQL server.
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+mysql> desc users;
++----------+--------------+------+-----+---------+----------------+
+| Field    | Type         | Null | Key | Default | Extra          |
++----------+--------------+------+-----+---------+----------------+
+| id       | int(11)      | NO   | PRI | NULL    | auto_increment |
+| first    | varchar(35)  | YES  |     | NULL    |                |
+| last     | varchar(35)  | YES  |     | NULL    |                |
+| email    | varchar(100) | YES  |     | NULL    |                |
+| username | varchar(25)  | YES  |     | NULL    |                |
+| password | varchar(75)  | YES  |     | NULL    |                |
++----------+--------------+------+-----+---------+----------------+
+6 rows in set (0.18 sec)
+
+mysql> desc food_item;
++------------+-----------------------+------+-----+---------+----------------+
+| Field      | Type                  | Null | Key | Default | Extra          |
++------------+-----------------------+------+-----+---------+----------------+
+| id         | int(11)               | NO   | PRI | NULL    | auto_increment |
+| name       | varchar(30)           | YES  |     | NULL    |                |
+| values_per | int(10) unsigned      | YES  |     | NULL    |                |
+| unit       | varchar(15)           | YES  |     | NULL    |                |
+| calories   | decimal(6,2) unsigned | YES  |     | NULL    |                |
+| carbs      | decimal(6,2) unsigned | YES  |     | NULL    |                |
+| fat        | decimal(6,2) unsigned | YES  |     | NULL    |                |
+| protein    | decimal(6,2) unsigned | YES  |     | NULL    |                |
+| salt       | decimal(6,2) unsigned | YES  |     | NULL    |                |
+| sugar      | decimal(6,2) unsigned | YES  |     | NULL    |                |
+| input_by   | varchar(25)           | YES  |     | NULL    |                |
++------------+-----------------------+------+-----+---------+----------------+
+11 rows in set (0.00 sec)
+
